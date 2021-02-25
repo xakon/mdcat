@@ -26,3 +26,12 @@ jobs:
            cd /tmp/inst
            tar zcf /tmp/mdcat.tar.gz .
            zip -r /tmp/mdcat.zip .
+
+      - name: Upload Release Archives
+        uses: actions/upload-artifact@v2
+        with:
+          name: Archives for Ubuntu 18.04
+          path: |
+            /tmp/mdcat.tar.gz
+            /tmp/mdcat.zip
+          retention-days: 3
