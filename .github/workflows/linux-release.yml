@@ -1,0 +1,16 @@
+##
+## Create a release archive for Linux.
+##
+name: Linux Release
+on: [push]
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: make release
+      - run: rm -rf /tmp/inst
+      - run: make DESTDIR=/tmp/inst install
+      - run: cd /tmp/inst && tar zcf /tmp/mdcat.tar.gz .
+      - run: cd /tmp/inst && zip -r /tmp/mdcat.zip .
