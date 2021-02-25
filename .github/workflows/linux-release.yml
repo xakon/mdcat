@@ -8,12 +8,17 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+        name: Checkout source code
+
       - uses: actions-rs/toolchain@v1
+        name: Install minimal Rust build system
         with:
           toolchain: 1.44.1
           default: true
 
       - run: make release
+        name: Build software
+
       - run: rm -rf /tmp/inst
       - run: make DESTDIR=/tmp/inst install
       - run: cd /tmp/inst && tar zcf /tmp/mdcat.tar.gz .
