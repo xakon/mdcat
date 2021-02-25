@@ -21,5 +21,7 @@ jobs:
 
       - run: rm -rf /tmp/inst
       - run: make DESTDIR=/tmp/inst install
-      - run: cd /tmp/inst && tar zcf /tmp/mdcat.tar.gz .
-      - run: cd /tmp/inst && zip -r /tmp/mdcat.zip .
+      - run: tar zcf /tmp/mdcat.tar.gz .
+        working-directory: /tmp/inst
+      - run: zip -r /tmp/mdcat.zip .
+        working-directory: /tmp/inst
