@@ -23,15 +23,20 @@ jobs:
         run: |
            rm -rf /tmp/inst
            make DESTDIR=/tmp/inst install
+
+           CARGO_FLAGS='--quiet --release --frozen'
+           VERSION=$(cargo run $CARGO_FLAGS -- -V | cut -f2 -d\ )
+           REPO=$(echo $GITHUB_REPOSITORY | cut -f2 -d/)
+
            cd /tmp/inst
-           tar zcf /tmp/mdcat.tar.gz .
-           zip -r /tmp/mdcat.zip .
+           tar zcf /tmp/$REPO-$VERSION.tar.gz .
+           zip -r /tmp/$REPO-$VERSION.zip .
 
       - name: Upload Release Archives
         uses: actions/upload-artifact@v2
         with:
           name: Archives for Ubuntu 18.04
           path: |
-            /tmp/mdcat.tar.gz
-            /tmp/mdcat.zip
+            /tmp/*.tar.gz
+            /tmp/*.zip
           retention-days: 3
