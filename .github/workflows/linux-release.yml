@@ -7,17 +7,17 @@ jobs:
   create-release:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout source code
+      - name: Checkout source code
+        uses: actions/checkout@v2
 
-      - uses: actions-rs/toolchain@v1
-        name: Install minimal Rust build system
+      - name: Install minimal Rust build system
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: 1.44.1
           default: true
 
-      - run: make release
-        name: Build software
+      - name: Build software
+        run: make release
 
       - name: Create release archives
         run: |
